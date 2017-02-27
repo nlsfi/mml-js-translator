@@ -1,0 +1,2 @@
+export const SAVE_TRANSLATIONS = 'SAVE_TRANSLATIONS';
+export const SET_LANGUAGE = 'SET_LANGUAGE';
