@@ -1,7 +1,18 @@
 import t from 'helpers/Translator/Translator';
+import * as fi from 'i18n/kasi_fi';
+import * as sv from 'i18n/kasi_sv';
+import * as en from 'i18n/kasi_en';
+
+import testProps from './testProps'
+
 describe('testing test',()=>{
-	it('should run a test',()=>{
-		expect('foo').not.toBe('bar');
+
+  t.add(fi,'fi');
+  t.add(sv,'sv');
+  t.add(en,'en');
+
+	it('should run a test: t('+t('foo')+')',()=>{
+		expect('foo').toBe('foo');
 	});
 });
 
@@ -14,11 +25,26 @@ describe('addLanguage',function(){
 })
 
 describe('addPropertySet',function(){
-  it('should add keys and values from propertie file to dictionary',function(){
-    expect(t('app.logo.title')).to.equal('app.logo.title');
-    t.add(fi,'fi');
-    expect(t('app.logo.title')).not.to.equal('app.logo.title');
+  it('should add keys and values from javascript object file to dictionary',function(){
+    expect(t('foo.bar')).toEqual('foo.bar');
+    t.add({'foo.bar':'Hello'},'fi');
+    expect(t('foo.bar')).toEqual('Hello');
   });
+
+  it('should add keys and values from .properties file import to dictionary',function(){
+    expect(t('test.property')).toEqual('test.property');
+    t.add(testProps,'fi');
+    expect(t('test.property')).toEqual('Se on oikein!');
+  });
+
+  it('should overwrite previous keys',function(){
+    expect(t('test')).toEqual('test value');
+    t.add({'test':'Uusi arvo'},'fi');
+    expect(t('test')).toEqual('Uusi arvo');
+    //ensure other values are not affected
+    expect(t('test.property')).toEqual('Se on oikein!');
+  });
+
 });
 
 describe('parsePropertyFile',function(){
@@ -27,11 +53,37 @@ describe('parsePropertyFile',function(){
 
 describe('translate key', () => {
 
-  it('should work without runtime error even if not populated',() => {
+  xit('should work without runtime error even if not populated',() => {
     expect(t('foo')).to.equal('foo');
   });
 
 });
+
+describe('DICTIONARY scope:', ()=>{
+  it('To be decided: should share dictionary state between imports to other modules?');
+})
+
+
+describe('Translate object', () => {
+
+  it('should return value in finnish (default lang)',()=>{
+    const object = {
+      fi: 'Suomeksi',
+      sv: 'Ruotsiksi'
+    };
+
+    expect(t(object)).toEqual('Suomeksi');
+  });
+
+  it('should return value in swedish if no other language key available',()=>{
+    const object = {
+      sv: 'Ruotsiksi'
+    };
+
+    expect(t(object)).toEqual('Ruotsiksi');
+  });
+});
+
 // TODO deprecated tests because new translator logic (loading via webpack)
 
 

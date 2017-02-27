@@ -12,10 +12,10 @@ var webpackConfig = {
             path.resolve('./client'),
             path.resolve('./client/**/')
         ],
-        extensions: ['', '.js', '.jsx', '.properties']
+        extensions: ['', '.js', '.properties']
     },
     babel: {
-        presets: ['es2015', 'react'],
+        presets: ['es2015',],
         plugins: ['transform-object-assign']
     },
     isparta: {
@@ -23,7 +23,7 @@ var webpackConfig = {
         noAutoWrap: true,
         // these babel options will be passed only to isparta and not to babel-loader
         babel: {
-            presets: ['es2015', 'react'],
+            presets: ['es2015'],
             plugins: ['transform-object-assign']
         }
     },
@@ -32,9 +32,7 @@ var webpackConfig = {
             {
                 test: testLoaderPattern,
                 exclude: [
-                    path.resolve('./client/components/'),
-                    path.resolve('./client/containers/'),
-                    path.resolve('./client/reducers/'),
+                    path.resolve('./client/helpers/Translator'),
                     path.resolve('node_modules/')
                 ],
                 loader: 'babel'
@@ -43,40 +41,20 @@ var webpackConfig = {
             {
                 test: testLoaderPattern,
                 include: [
-                    path.resolve('./client/components/'),
-                    path.resolve('./client/containers/'),
-                    path.resolve('./client/reducers/')
+                    path.resolve('./client/helpers/Translator'),
+
+
                 ],
                 loader: 'isparta'
             }
         ],
         loaders: [
-            {test: /\.json$/, loader: 'json-loader'},
-            {test: /.jsx?$/, loader: 'babel-loader', exclude: /node_modules/, query: { presets: ['es2015', 'react'] } },
-            {test: /\.css$/, loader: 'style!css'},
-            {test: /\.less$/, loader: 'style!css!less'},
-            {test: /\.styl$/, loader: 'style!css!stylus'},
-            {test: /\.(eot|otf|woff2?|ttf|svg|png)[\?]?.*$/, loader: 'file-loader'},
-            {test: /\.hbs$/, loader: 'handlebars-loader'},
             {test: /\.properties$/, loader: 'properties-loader'}
         ],
-        plugins: [
-            new webpack.ProvidePlugin({
-                $: 'jquery',
-                jQuery: 'jquery',
-                'window.jQuery': 'jquery'
-            })
-        ]
     },
     stats: {
         colors: true
     },
-    plugins: [
-       //new RewirePlugin()
-      new webpack.DefinePlugin({
-        APP_PUBLIC_PATH: JSON.stringify(APP_PUBLIC_PATH)
-      })
-    ],
     eslint: {configFile: '.eslintrc'}
 };
 
@@ -92,10 +70,8 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            '../node_modules/promise-polyfill/Promise.js',
             '../node_modules/react-tools/src/test/phantomjs-shims.js',
             '../node_modules/babel-polyfill/dist/polyfill.js',
-            'lib/jquery/2.2.0/jquery.js',
             'test/index.js'
         ],
 

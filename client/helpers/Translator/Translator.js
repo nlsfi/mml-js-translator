@@ -1,77 +1,32 @@
-import * as fi from 'i18n/kasi_fi';
-import * as sv from 'i18n/kasi_sv';
-import * as en from 'i18n/kasi_en';
-
-import _ from 'underscore';
+import _ from 'lodash/core';
 // import {setLanguage, saveTranslations} from './TranslatorActions';
+// Module main storage
 
+// Needs to be tested if this is shared between imports to different modules
 
 export const AVAILABLE_LANGS = [
   {code: 'fi', title: 'languageSelector.links.fi.title'},
   {code: 'sv', title: 'languageSelector.links.sv.title'},
   {code: 'en', title: 'languageSelector.links.en.title'}
 ];
+
 export const AVAILABLE_LANG_CODES = AVAILABLE_LANGS.map(lang=>lang.code);
+
 export const DEFAULT_LANG_CODE = AVAILABLE_LANG_CODES[0];
 
 let _passKeys = false;
 let _debug = false;
 let _lang =  DEFAULT_LANG_CODE;
-// var dispatch, getState;
 
-export function makeDict() {
-  let dictionary = Object.create(null);
-  dictionary.fi = parsePropertyFile(fi);
-  dictionary.sv = parsePropertyFile(sv);
-  dictionary.en = parsePropertyFile(en);
-  return dictionary;
-}
-
-const DICTIONARY = makeDict();
-
-function parsePropertyFile(propsFile) {
+export function parsePropertyFile(propsFile) {
   return JSON.parse(JSON.stringify(propsFile).split(':null').join(':""'));
 }
 
-export function setDebug(isOn) {
-  _debug = isOn;
-}
-
-/*
- *
- * Initialize translator to redux aware module. Dict is parsed from imports.
- * @param dispatchFn is used to save data to redux store (lang, dict)
- * @param getStateFn is used to retrieve data from redux store
- * @param langParam current language
- * @returns {Promise}
- *
- * Sakke's notes:
- * I call bullshit/antipattern on this one.
- * It just broke TranslatorTool and it prevents Translator
- * from being used outside redux context , that is, outside
- * application start cycle.
- *
- * Translator just got downgraded from independent module to
- * Spaghetti Monster.
- *
- *
- */
-
-// export function init(dispatchFn, getStateFn, langParam) {
-//   dispatch = dispatchFn;
-//   getState = getStateFn;
-//   _dict = makeDict();
-//   return Promise.all([
-//     dispatch(setLanguage(langParam)),
-//     // dispatch(saveTranslations(makeDict()))
-//   ]);
-//   // return {translations:_dict, language:}
-// }
+const DICTIONARY = {};
 
 export function passKeys(pass) {
   return _passKeys = pass;
 }
-
 
 export function setTranslationLanguage(lang) {
   _lang = lang;
@@ -80,25 +35,25 @@ export function setTranslationLanguage(lang) {
 
 export function getCurrentLangCode() {
   return _lang;
-  // return !getState ? DEFAULT_LANG_CODE : getState()['translator']['lang'];
-  // //WTF?
-  // return !getState ? DEFAULT_LANG_CODE : getState()['translator']['lang'];
 }
 
+export function addPropertySet(raw,lang) {
+  DICTIONARY[lang] = { ...DICTIONARY[lang] || {}, ...parsePropertyFile(raw) };
+}
+
+translate.add = addPropertySet;
+
 export default function translate(key, forceLang) {
-  // console.log(key);
-  // return key;
+
   const lang = forceLang || _lang;
+
   if (typeof key === 'object') {
     return key[lang] ? key[lang] : _.values(key)[0];
-  } else if (_passKeys) {
-    return key;
-  } else {
-    const txt = DICTIONARY[lang][key] || key;
-    // const txt = getState()['translator']['translations'][lang][key] || key;
-    if (_debug) {
-      console.log(txt);
-    }
-    return txt;
   }
+
+  if (_passKeys) {
+    return key;
+  }
+
+  return DICTIONARY[lang][key] || key;
 }
