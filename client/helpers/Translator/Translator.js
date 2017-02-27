@@ -22,10 +22,17 @@ export function parsePropertyFile(propsFile) {
   return JSON.parse(JSON.stringify(propsFile).split(':null').join(':""'));
 }
 
+// Create store and default language
 const DICTIONARY = {};
+DICTIONARY[_lang] = {};
 
 export function passKeys(pass) {
-  return _passKeys = pass;
+
+  if(undefined === pass) return _passKeys;
+
+  _passKeys = !!pass;
+
+  return _passKeys
 }
 
 export function setTranslationLanguage(lang) {
