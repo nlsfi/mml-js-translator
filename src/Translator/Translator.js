@@ -1,3 +1,4 @@
+import _ from 'lodash/core';
 export const AVAILABLE_LANGS = [
   {code: 'fi', title: 'languageSelector.links.fi.title'},
   {code: 'sv', title: 'languageSelector.links.sv.title'},
@@ -93,19 +94,22 @@ export default function translate(key, forceLang) {
   // console.log(key);
   // return key;
   const lang = forceLang || _lang;
+
+  if(!DICTIONARY[lang]) {
+    console.log('language not set');
+    // throw new Error('language not set');
+    return key;
+  }
+
+  if(_passKeys) {
+   return key;
+  }
+
   if (typeof key === 'object') {
     return key[lang] ? key[lang] : _.values(key)[0];
   }
 
-  if (_passKeys) {
-    return key;
-  }
-
-  const txt = DICTIONARY[lang][key] || key;
-  if (_debug) {
-    console.log(txt);
-  }
-  return txt;
+  return DICTIONARY[lang][key] || key;
 
 }
 

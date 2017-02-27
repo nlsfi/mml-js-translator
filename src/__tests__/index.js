@@ -1,70 +1,40 @@
-import React from 'react';
-import {expect} from 'chai';
-// import sinon from 'sinon';
-
+import { expect } from 'chai';
 import Translator from '../Translator/Translator';
 
+// intended usage: t('mykey.to.some.value')
+// Feel free to use Translator('my.key') if you wwant..
+
+const t = Translator;
+
 describe('translate key', () => {
+
   it('should work without runtime error even init is not done',() => {
-    expect(t('foo')).toEqual('foo');
+    expect(t('foo')).to.equal('foo');
   });
 
-// describe('getSettings',()=>{
-//   it('should return default empty values when not initiated');
 
-//   init(state,'fi');
-
-//   it('should return the current lang and map',()=>{
-//     expect(getSettings().map).toEqual(state);
-//     expect(getSettings().defaultLang).toBe('fi');
-//   });
-// });
-
-// describe('init',()=>{
-
-//   it('should throw an error if initiated with empty params',()=>{
-//     expect(()=>init(undefined,null)).toThrow(new Error(INIT_ERROR));
-//   });
+  // 'should return key if _passKeys is set'
 
 
-//   it('should not overwrite previous settings if called with bad values',()=>{
-//     expect(()=>init(undefined,null)).toThrow(new Error(INIT_ERROR));
-//     expect(getSettings().map).toEqual(state);
-//     expect(getSettings().defaultLang).toBe('fi');
-//   });
+  // 'should parse object
 
-//   it('should update settings with given parameters',()=>{
-//     const newMap ={foo:'bar'};
-//     const newLang = 'FU';
-//     const dbg = true;
-//     const newSettings = init(newMap,newLang,dbg);
 
-//     expect(newSettings.map).toEqual(newMap);
-//     expect(newSettings.defaultLang).toBe(newLang);
-//     expect(newSettings.debug).toBe(dbg);
-//     //reset debug to prevent log pollution
-//     init(newMap,newLang,false);
+  // describe('called with a valid key', ()=> {
+  //   const key = 'my.key';
+  //   describe('finnish language selected', ()=> {
+  //     it('should translate key to Finnish', ()=> {
+  //       init(state, 'FI');
+  //       expect(t(key)).toBe('Suomeksi');
+  //     });
+  //   });
+  //   describe('swedish language selected', ()=> {
+  //     it('should translate key to Swedish', ()=> {
+  //       init(state, 'SV');
+  //       expect(t(key)).toBe('Ruotsiksi');
+  //     });
+  //   });
 
-//   });
-
-// });
-
-// describe('called with a valid key', ()=> {
-//   const key = 'my.key';
-//   describe('finnish language selected', ()=> {
-//     it('should translate key to Finnish', ()=> {
-//       init(state, 'FI');
-//       expect(t(key)).toBe('Suomeksi');
-//     });
-//   });
-//   describe('swedish language selected', ()=> {
-//     it('should translate key to Swedish', ()=> {
-//       init(state, 'SV');
-//       expect(t(key)).toBe('Ruotsiksi');
-//     });
-//   });
-
-// });
+  // });
 
 // describe('called with an invalid key', ()=> {
 //   const key = 'foo';
