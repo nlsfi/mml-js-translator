@@ -1,7 +1,12 @@
 import t, { getCurrentLangCode ,passKeys } from 'Translator/';
+
 import * as fi from 'i18n/kasi_fi';
 import * as sv from 'i18n/kasi_sv';
 import * as en from 'i18n/kasi_en';
+
+
+import test1 from './testModule1';
+import test2 from './testModule2';
 
 import testProps from './testProps'
 
@@ -69,8 +74,21 @@ describe('Translator module', () => {
     it('should parse given property file to Javascript object');
   });
 
-  xdescribe('DICTIONARY scope:', ()=>{
-    it('To be decided: should share dictionary state between imports to other modules?');
+  describe('DICTIONARY scope:', () => {
+    it('should have test1 set from testmodule1',() => {
+      expect(test1.test()).toEqual('Value for test1');
+    });
+
+    it('should have test2 set from testmodule2',() => {
+      expect(test2.test()).toEqual('Value for test2');
+    });
+
+    it('should overwrite the same keys in order of appearence',() => {
+      expect( t('test1') ).toEqual('Value for test1');
+      expect( t('test2') ).toEqual('Value for test2');
+      expect(t('collision')).toEqual('collision test2');
+    });
+  //  it('To be decided: should share dictionary state between imports to other modules?');
   });
 
   describe('Translate object', () => {
