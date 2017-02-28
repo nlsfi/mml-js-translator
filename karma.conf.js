@@ -9,8 +9,8 @@ var webpackConfig = {
     devtool: 'inline-source-map',
     resolve: {
         root: [
-            path.resolve('./client'),
-            path.resolve('./client/**/')
+            path.resolve('./src'),
+            path.resolve('./src/**/')
         ],
         extensions: ['', '.js', '.properties']
     },
@@ -32,7 +32,7 @@ var webpackConfig = {
             {
                 test: testLoaderPattern,
                 exclude: [
-                    path.resolve('./client/helpers/Translator'),
+                    path.resolve('./src/'),
                     path.resolve('node_modules/')
                 ],
                 loader: 'babel'
@@ -41,7 +41,7 @@ var webpackConfig = {
             {
                 test: testLoaderPattern,
                 include: [
-                    path.resolve('./client/helpers/Translator'),
+                    path.resolve('./src/'),
 
 
                 ],
@@ -62,7 +62,7 @@ var webpackConfig = {
 module.exports = function(config) {
     config.set({
         // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: 'client/',
+        basePath: 'src/',
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter

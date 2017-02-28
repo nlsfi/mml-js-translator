@@ -1,4 +1,4 @@
-import t, { getCurrentLangCode ,passKeys}from 'helpers/Translator/Translator';
+import t, { getCurrentLangCode ,passKeys } from 'Translator/';
 import * as fi from 'i18n/kasi_fi';
 import * as sv from 'i18n/kasi_sv';
 import * as en from 'i18n/kasi_en';
