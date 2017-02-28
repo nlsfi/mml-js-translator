@@ -1,19 +1,28 @@
 {
+  "name": "js-translator",
   "description": "Translator .properties files with Webpack",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "private": true,
   "repository": {
     "type": "git",
     "url": "git@versionhallinta.mmmtike.fi:SLAAKSONEN/js-translator.git"
   },
+  "files": [
+    "index.js",
+    "dist"
+  ],
   "license": "MIT",
   "scripts": {
+    "build": "babel --plugins transform-es2015-modules-umd src/Translator --out-dir ./dist",
+    "prepublish": "npm run build",
     "test": "cross-env NODE_ENV=test karma start --single-run",
     "test-watch": "cross-env NODE_ENV=test karma start"
   },
   "devDependencies": {
+    "babel-cli": "^6.23.0",
     "babel-eslint": "^4.1.6",
     "babel-preset-stage-0": "^6.3.13",
+    "babel-plugin-transform-es2015-modules-umd": "^6.23.0",
     "eslint": "^2.10.2",
     "eslint-loader": "^1.1.1",
     "eslint-plugin-babel": "^3.0.0",
@@ -45,5 +54,8 @@
   },
   "dependencies": {
     "lodash": "latest"
+  },
+  "publishConfig": {
+    "registry": "http://ci.mmmtike.fi:8081/nexus/repository/npm-releases/"
   }
 }
