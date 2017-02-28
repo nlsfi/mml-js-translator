@@ -1,5 +1,5 @@
 {
-  "description": "KasiApp",
+  "description": "Translator .properties files with Webpack",
   "version": "0.0.3",
   "private": true,
   "repository": {
@@ -8,8 +8,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "test": "cross-env NODE_ENV=test APP_PUBLIC_PATH=/ karma start --single-run",
-    "test-watch": "cross-env NODE_ENV=test APP_PUBLIC_PATH=/ karma start"
+    "test": "cross-env NODE_ENV=test karma start --single-run",
+    "test-watch": "cross-env NODE_ENV=test karma start"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.6",
