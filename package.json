@@ -1,7 +1,7 @@
 {
   "name": "js-translator",
   "description": "Translator .properties files with Webpack",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "git@versionhallinta.mmmtike.fi:SLAAKSONEN/js-translator.git"
