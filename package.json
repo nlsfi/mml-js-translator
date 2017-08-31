@@ -1,10 +1,10 @@
 {
-  "name": "js-translator",
-  "description": "Translator .properties files with Webpack",
-  "version": "0.0.2",
+  "name": "mml-js-translator",
+  "description": "Content translation module for .properties files with Webpack",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
-    "url": "git@versionhallinta.mmmtike.fi:SLAAKSONEN/js-translator.git"
+    "url": "git@versionhallinta.mmmtike.fi:SLAAKSONEN/mml-js-translator.git"
   },
   "files": [
     "index.js",
