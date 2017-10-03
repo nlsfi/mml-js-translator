@@ -55,6 +55,6 @@
     "lodash": "latest"
   },
   "publishConfig": {
-    "registry": "http://ci.mmmtike.fi:8081/nexus/repository/npm-releases/"
+    "registry": "https://registry.npmjs.org/"
   }
 }
